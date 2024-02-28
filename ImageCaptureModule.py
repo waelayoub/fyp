@@ -50,38 +50,47 @@ def scroll_and_wait_for_images(page, timeout=30000):
     }
     """
 
-    wait_for_images_to_load(page, timeout)
+    try:
+        wait_for_images_to_load(page, timeout)
+    except Exception as e:
+        if not (str(e).__contains__("EvalError")):
+            print(e)
+            print("Crawling will start even if some images has not been loaded")
+            timeout = 3000
+        else:
+            time.sleep(1)
+
     for i in range(scroller_number):
         page.evaluate(js_scroll)
         time.sleep(2)
-        wait_for_images_to_load(page, timeout)
+        try:
+            wait_for_images_to_load(page, timeout)
+        except Exception as e:
+            if not (str(e).__contains__("EvalError")):
+                print("Continuing crawling even with not all loaded images")
+            else:
+                time.sleep(1)
         print("Completion: "+str(round((i+1)/scroller_number*100, 2))+" %")
     scroll_to_top(page)
 
 
-def crawl_and_capture(url, base_output_path, page):
+def crawl_and_capture(url, base_output_path, page, site_timeout=90000):
     try:
-        try:
-            page.goto(url, wait_until='networkidle', timeout=90000)
-        except Exception as e:
-            print(e)
-            print("timeOut")
-            page.goto(url,  timeout=90000)
-
+        page.goto(url, wait_until='networkidle', timeout=site_timeout)
+    except Exception as e:
+        print(f"An error occurred while processing {url}: {e}")
+    finally:
         remove_disclaimer_cookies(page)
-        # remove_ads(page)
+        remove_ads(page)
 
-        scroll_and_wait_for_images(page, 90000)
+        scroll_and_wait_for_images(page, site_timeout)
 
         filename = str(uuid.uuid4())+".png"
         output_path = f"{base_output_path}/{filename}"
 
-        time.sleep(2)
-        page.screenshot(path=output_path, full_page=True)
+        time.sleep(3)
+        page.screenshot(path=output_path, full_page=True, animations="allow")
         print(f"Screenshot saved for {url} at {output_path}")
-    except Exception as e:
-        print(f"An error occurred while processing {url}: {e}")
-    finally:
         page.close()
 
 
@@ -102,7 +111,6 @@ def remove_disclaimer_cookies(page):
     #         }
     #     });
     # """
-
 
     generic_cookie_js = """
         const selectors = [
@@ -163,12 +171,15 @@ def remove_ads(page):
     page.add_style_tag(content=hide_ads_css)
 
 
+
+
 def main():
     # start_url = "https://www.youtube.com"
     # start_url ="https://www.mtv.com.lb"
     # start_url = "https://www.lbcgroup.tv"
     # start_url = "https://www.aljadeed.tv"
-    start_url = input("Insert url: ")
+    start_url = "https://www.tradingview.com/markets/cryptocurrencies/#cryptocurrencies-market-summary"
+    # start_url = input("Insert url: ")
 
     output_directory = "./images"
 
@@ -185,9 +196,10 @@ def main():
             background_page = context.wait_for_event('backgroundpage')
         else:
             background_page = context.background_pages[0]
-
         page = context.new_page()
+
         crawl_and_capture(start_url, output_directory, page)
+
         context.close()
 
 
