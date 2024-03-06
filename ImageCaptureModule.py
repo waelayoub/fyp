@@ -1,4 +1,6 @@
 import time
+import os
+from PIL import Image
 from playwright.sync_api import sync_playwright
 import uuid
 
@@ -84,14 +86,50 @@ def crawl_and_capture(url, base_output_path, page, site_timeout=90000):
         remove_ads(page)
 
         scroll_and_wait_for_images(page, site_timeout)
+        folder_path = base_output_path+"/"+str(uuid.uuid4())
 
-        filename = str(uuid.uuid4())+".png"
-        output_path = f"{base_output_path}/{filename}"
+        os.mkdir(path=folder_path)
+
+        filename = "full_page.png"
+        output_path = f"{folder_path}/{filename}"
 
         time.sleep(3)
         page.screenshot(path=output_path, full_page=True, animations="allow")
         print(f"Screenshot saved for {url} at {output_path}")
+        split_image(output_path, folder_path, split_height=1024, image_format='png')
         page.close()
+
+
+def split_image(input_path, output_directory, split_height=1024, image_format='png'):
+    """
+    Split the input image into multiple smaller images of a specified height.
+
+    Args:
+    - input_path (str): The path of the input image to split.
+    - output_directory (str): The directory where the split images will be saved.
+    - split_height (int): The height of each split image.
+    - image_format (str): The format of the split images.
+    """
+    with Image.open(input_path) as img:
+        img_width, img_height = img.size
+
+        # Calculate the number of splits needed based on the split height
+        splits = img_height // split_height
+        if img_height % split_height != 0:
+            splits += 1
+
+        # Split the image and save each part
+        for i in range(splits):
+            top = i * split_height
+            bottom = min((i + 1) * split_height, img_height)
+
+            # Crop the image
+            img_cropped = img.crop((0, top, img_width, bottom))
+            split_filename = os.path.join(output_directory, f"split_{i}.{image_format}")
+
+            # Save the cropped image
+            img_cropped.save(split_filename)
+            print(f"Saved split image: {split_filename}")
 
 
 def remove_disclaimer_cookies(page):
@@ -171,15 +209,13 @@ def remove_ads(page):
     page.add_style_tag(content=hide_ads_css)
 
 
-
-
 def main():
     # start_url = "https://www.youtube.com"
     # start_url ="https://www.mtv.com.lb"
     # start_url = "https://www.lbcgroup.tv"
     # start_url = "https://www.aljadeed.tv"
-    start_url = "https://www.tradingview.com/markets/cryptocurrencies/#cryptocurrencies-market-summary"
-    # start_url = input("Insert url: ")
+    # start_url = "https://www.tradingview.com/markets/cryptocurrencies/#cryptocurrencies-market-summary"
+    start_url = input("Insert url: ")
 
     output_directory = "./images"
 
