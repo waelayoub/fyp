@@ -22,6 +22,7 @@ class ScraperEngine:
 
     def run(self):
         self.get_images()
+        input("Press enter to continue")
         self.initiate_ai()
         print(self.send_request())
 

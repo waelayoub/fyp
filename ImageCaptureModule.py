@@ -109,7 +109,7 @@ class ImageCaptureModule:
         finally:
             if input("Want to remove cookies?").strip().lower() == "yes":
                 self.remove_disclaimer_cookies()
-            if input("Want to remove advertissments?").strip().lower() == "yes":
+            if input("Want to remove advertisements?").strip().lower() == "yes":
                 self.remove_ads()
 
             self.scroll_and_wait_for_images(site_timeout)
