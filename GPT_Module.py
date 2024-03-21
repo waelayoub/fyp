@@ -1,7 +1,9 @@
 import base64
+import config
 import requests
 from openai import OpenAI
 
+api_key = config.api_key
 
 class Gpt4:
 
