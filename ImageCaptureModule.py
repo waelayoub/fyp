@@ -14,7 +14,6 @@ class ImageCaptureModule:
         self.playwright = sync_playwright().start()
         browser_type = self.playwright.chromium
         self.context = browser_type.launch_persistent_context("", headless=False, args=[
-            "--headless=new",
             f'--load-extension=./fihnjjcciajhdojfnbdddfaoknhalnja/3.5.0_0',
             f'--disable-extensions-except=./fihnjjcciajhdojfnbdddfaoknhalnja/3.5.0_0'
         ])
@@ -71,6 +70,8 @@ class ImageCaptureModule:
 
         body_height, window_height = self.get_dimensions()
         scroller_number = round(body_height/window_height)
+        if scroller_number > 8:
+            scroller_number = 8
 
         js_scroll = """
         () => {
@@ -90,7 +91,7 @@ class ImageCaptureModule:
 
         for i in range(scroller_number):
             self.page.evaluate(js_scroll)
-            time.sleep(2)
+            time.sleep(4)
             try:
                 self.wait_for_images_to_load(timeout)
             except Exception as e:
@@ -124,9 +125,18 @@ class ImageCaptureModule:
             time.sleep(3)
             self.page.screenshot(path=output_path, full_page=True, animations="allow")
             print(f"Screenshot saved for {self.start_url} at {output_path}")
+            self.crop_image(output_path)
             print("\n\n")
             self.split_image(output_path, folder_path, split_height=1024, image_format='png')
             self.page.close()
+
+    def crop_image(self, input_path):
+        with Image.open(input_path) as img:
+            img_width, img_height = img.size
+            if img_height > 5120:
+                img.crop()
+                new_image = img.crop((0, 0, img_width, 5120))
+                new_image.save(input_path)
 
     def split_image(self, input_path, output_directory, split_height=1024, image_format='png'):
         """
