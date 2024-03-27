@@ -18,6 +18,9 @@ class ImageCaptureModule:
             f'--disable-extensions-except=./fihnjjcciajhdojfnbdddfaoknhalnja/3.5.0_0'
         ])
 
+        self.context.clear_permissions()  # Clear any previously set permissions
+        self.context.grant_permissions([], origin=start_url)  # Block notifications for the start_url
+
         if len(self.context.background_pages) == 0:
             background_page = self.context.wait_for_event('backgroundpage')
         else:
