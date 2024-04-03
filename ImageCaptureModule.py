@@ -3,7 +3,7 @@ import os
 from PIL import Image
 from playwright.sync_api import sync_playwright
 import uuid
-
+import config
 
 class ImageCaptureModule:
 
@@ -14,8 +14,8 @@ class ImageCaptureModule:
         self.playwright = sync_playwright().start()
         browser_type = self.playwright.chromium
         self.context = browser_type.launch_persistent_context("", headless=False, args=[
-            f'--load-extension=./fihnjjcciajhdojfnbdddfaoknhalnja/3.5.0_0',
-            f'--disable-extensions-except=./fihnjjcciajhdojfnbdddfaoknhalnja/3.5.0_0'
+            f'--load-extension='+config.extension_path,
+            f'--disable-extensions-except='+config.extension_path
         ])
 
         self.context.clear_permissions()  # Clear any previously set permissions
