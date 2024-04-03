@@ -15,7 +15,7 @@ class ScraperEngine:
         self.website_image_information = self.image_module.run()
 
     def initiate_ai(self):
-        self.ai_module = Gpt4(self.website_image_information[0], self.website_image_information[1])
+        self.ai_module = Gpt4(self.start_url, self.website_image_information[0], self.website_image_information[1])
 
     def send_request(self):
         return self.ai_module.send_request()
