@@ -33,15 +33,13 @@ class Gpt4:
             "content": [
                 {
                     "type": "text",
-                    "text": """Which one of these 4 categories you think this website is? I want you to choose one of 
-                            them only and send only the answer as the option with not additional text so is it news, 
-                            booking, e-commerce or social-media? """+self.url
+                    "text": f"Given a URL, determine its category from the following options: News, Booking. Analyze the content associated with the URL: {self.url} and select the category that best matches its primary focus or content type. Respond with only the category name and nothing else."
 
                 }
             ]
         }]
 
-        self.extractor_payload["messages"] = message_content
+        self.identifier_payload["messages"] = message_content
 
     def prepare_extraction_payload(self):
         self.extractor_payload["model"] = "gpt-4-vision-preview"
@@ -74,8 +72,8 @@ class Gpt4:
             ]
         }]
         self.add_images_to_payload(message_content)
-
-        self.add_template_to_payload(message_content, config.current_directory+"/response_templates/news_template.jsonl")
+        print("Template path : "+config.current_directory+"/response_templates/"+self.type+"_template.jsonl")
+        self.add_template_to_payload(message_content, config.current_directory+"/response_templates/"+self.type+"_template.jsonl")
 
         self.extractor_payload["messages"] = message_content
 
@@ -106,15 +104,19 @@ class Gpt4:
         response = requests.post("https://api.openai.com/v1/chat/completions", headers=self.headers, json=self.identifier_payload)
         response_json = response.json()
         message_content = response_json['choices'][0]['message']['content']
-        return message_content
+        return message_content.strip().lower()
+        
 
-    def send_request(self):
+    def send_extractor_request(self):
         self.prepare_extraction_payload()
         response = requests.post("https://api.openai.com/v1/chat/completions", headers=self.headers, json=self.extractor_payload)
         response_json = response.json()
         message_content = response_json['choices'][0]['message']['content']
         return message_content
 
+    def run(self):
+        self.type=self.send_identifier_request()
+        print(self.type)
+        return self.send_extractor_request()
 
-tester = Gpt4("https://www.almanar.com.lb/live/", "", "")
-print(tester.send_identifier_request())
+
