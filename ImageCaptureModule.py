@@ -14,8 +14,8 @@ class ImageCaptureModule:
         self.playwright = sync_playwright().start()
         browser_type = self.playwright.chromium
         self.context = browser_type.launch_persistent_context("", headless=False, args=[
-            f'--load-extension='+config.extension_path,
-            f'--disable-extensions-except='+config.extension_path
+            f'--load-extension='+config.current_directory+"/fihnjjcciajhdojfnbdddfaoknhalnja/3.5.0_0",
+            f'--disable-extensions-except='+config.current_directory+"/fihnjjcciajhdojfnbdddfaoknhalnja/3.5.0_0"
         ])
 
         self.context.clear_permissions()  # Clear any previously set permissions
