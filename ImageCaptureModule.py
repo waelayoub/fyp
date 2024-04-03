@@ -29,7 +29,7 @@ class ImageCaptureModule:
         self.start_url = start_url
 
     def run(self):
-        output_directory = config.output_directory
+        output_directory = config.current_directory+"/images"
         self.crawl_and_capture(output_directory)
         self.context.close()
         # Stop Playwright explicitly to clean up resources
