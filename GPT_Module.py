@@ -30,10 +30,16 @@ class Gpt4:
             "content": [
                 {
                     "type": "text",
-                    "text": """You're an advanced AI model with cutting-edge OCR and vision capabilities, designed to process and analyze multiple split images from the same webpage. Your enhanced task is to accurately categorize the website type represented by each set of images—identifying it as belonging to categories such as news, hotel, e-commerce, or social media platforms (Twitter/X, Facebook).
-Upon determining the category, you will focus on extracting all identifiable text and visual elements from the images. Since these images are fragments of a larger webpage, your critical challenge is to reconstruct the page's comprehensive content and layout from these pieces. This process involves meticulously joining text that spans across images and capturing every pertinent piece of information, regardless of its nature.
-However, the specific requirement now is to structure the extracted data according to a predefined JSON template provided in the request. This template outlines fields such as 'title', 'text', 'images', 'links', 'category', and others tailored to accommodate the diverse and unique content found across different types of websites. While ensuring the integrity and completeness of content context, you must adapt your extraction process to fit this template, filling in each relevant field with the extracted data. For any fields where data is not available or cannot be extracted, you are instructed to leave those fields as null, ensuring the output remains clean and strictly adheres to the provided template structure.
-Your primary goal is to deliver a precise and comprehensive data representation, with an emphasis on accuracy and the capability to handle various content types seamlessly, aligning with the structured requirements of the JSON template. This approach ensures that no detail is missed and that the output is both complete and formatted according to the specific data structure requested."""
+                    "text": """You're an advanced AI model with specialized OCR and vision capabilities tasked with processing split images from a single webpage. Your objective is to identify the website's category (news, hotel, e-commerce, or social media) and extract all identifiable text, visual elements, and structural layout from these images. In doing so, you must:
+
+Accurately piece together text that spans across images.
+Capture hyperlinks, identifying them clearly with placeholder text like "[hyperlink detected]" wherever a hyperlink is present.
+Extract image details, including the image URL (if visible in the image) and any accompanying captions or alt text.
+Identify the headline categories as they appear in the image and sort articles under their respective headlines exactly as presented, without adding or assuming categories.
+Structure all extracted data according to the provided JSON template, filling in fields such as 'title', 'subtitle', 'images', 'links', and 'categories'.
+Ensure completeness and context integrity, leaving fields null where no data can be extracted.
+Maintain the hierarchy and layout of the webpage content in the JSON structure, keeping the main article and side articles distinctly separated and within their actual sections as per the image content.
+Your analysis should accurately reflect the webpage content, capturing all visible details without omission and categorizing the content exactly as it is displayed in the images. Adhere strictly to the provided JSON template formatting and structure without deviation."""
                 }
             ]
         }]
