@@ -75,13 +75,13 @@ class Gpt4:
         }]
         self.add_images_to_payload(message_content)
 
-        self.add_template_to_payload(message_content, "./response_templates/news_template.jsonl")
+        self.add_template_to_payload(message_content, config.current_directory+"/response_templates/news_template.jsonl")
 
         self.extractor_payload["messages"] = message_content
 
     def add_images_to_payload(self, message):
         for i in range(self.image_number):
-            image_path = "./images/" + self.uuid + "/split_" + str(i) + ".png"
+            image_path = config.current_directory+"/images/" + self.uuid + "/split_" + str(i) + ".png"
             base64_image = encode_image(image_path)
             image_headers = {
                 "type": "image_url",
