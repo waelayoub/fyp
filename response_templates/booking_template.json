@@ -1,26 +1,18 @@
 {
     "website_category": "null",
     "page_elements": {
-      "breadcrumbs": ["null"],
+      "breadcrumbs": [],
       "all_hotels":[
       {
         "hotel_name": "null",
         "star_rating": "null",
-        "location": {
-          "address": "null",
-          "city": "null",
-          "state": "null",
-          "country": "null",
-          "postal_code": "null",
-          "latitude": "null",
-          "longitude": "null"
-        },
+        "location": "null",
         "description": "null",
-        "amenities": ["null"],
+        "amenities": [],
         "images": [
           {
             "image_url": "null",
-            "caption": "null"
+            "image_caption": "null"
           }
         ],
         "reviews": {
@@ -45,25 +37,26 @@
               "currency": "null",
               "amount": "null"
             },
-            "amenities": ["null"],
+            "amenities": [],
             "images": [
               {
                 "image_url": "null",
-                "caption": "null"
+                "image_caption": "null"
+              }
+            ],
+            "availability": [
+              {
+                "date": "null",
+                "available_rooms": "null",
+                "price_per_night": {
+                  "currency": "null",
+                  "amount": "null"
+                }
               }
             ]
           }
         ],
-        "availability": [
-          {
-            "date": "null",
-            "available_rooms": "null",
-            "price_per_night": {
-              "currency": "null",
-              "amount": "null"
-            }
-          }
-        ],
+        
         "policies": {
           "check_in": "null",
           "check_out": "null",
@@ -78,12 +71,6 @@
             "valid_until": "null"
           }
         ],
-        "nearby_attractions": [
-          {
-            "attraction_name": "null",
-            "distance_from_hotel": "null"
-          }
-        ],
         "hotel_contact_info": {
           "phone_number": "null",
           "email": "null",
@@ -96,14 +83,6 @@
         "instagram": "null",
         "youtube": "null",
         "linkedin": "null"
-      },
-      "footer": {
-        "sections": [
-          {
-            "title": "null",
-            "links": {}
-          }
-        ]
       }
     }
   }

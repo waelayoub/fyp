@@ -1,0 +1,72 @@
+{
+    "website_category": "null",
+    "breadcrumbs": [],
+    "product_details": {
+    "product_name": "null",
+    "category": [],
+    "price": {
+        "currency": "null",
+        "current_price": "null",
+        "original_price": "null",
+        "discount_percentage": "null"
+    },
+    "description": "null",
+    "specifications": {
+        "weight": "null",
+        "dimensions": "null",
+        "color": "null",
+        "other": []
+    },
+    "images": [
+        {
+        "image_url": "null",
+        "caption": "null"
+        }
+    ],
+    "ratings_reviews": {
+        "average_rating": "null",
+        "total_reviews": "null",
+        "reviews": [
+        {
+            "title": "null",
+            "content": "null",
+            "rating": "null",
+            "author": "null",
+            "date": "null"
+        }
+        ]
+    },
+    "stock_availability": "null",
+    "shipping_info": {
+        "shipping_cost": "null",
+        "shipping_regions": [],
+        "estimated_delivery": "null"
+    },
+    "seller_info": {
+        "seller_name": "null",
+        "seller_rating": "null"
+    },
+    "discounts_promotions": [
+        {
+        "description": "null",
+        "valid_until": "null"
+        }
+    ],
+    "listing_date": "null",
+    "related_products": [
+        {
+        "product_name": "null",
+        "current_price": "null"
+        }
+    ]
+    },
+    "social_media_links": {
+    "twitter": "null",
+    "facebook": "null",
+    "instagram": "null",
+    "youtube": "null",
+    "linkedin": "null"
+    }
+
+  }
+  
