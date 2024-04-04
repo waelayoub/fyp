@@ -1,42 +1,36 @@
 {
-  "homepage_url": null,
+  "website_category": "null",
   "main_article": {
-    "title": null,
-    "author":null,
-    "date_published": null,
-    "subtitle": null,
+    "title": "null",
+    "author":"null",
+    "date_published": "null",
+    "subtitle": "null",
     "image": {
-      "url": null,
-      "caption": null
+      "url": "null",
+      "caption": "null"
     },
-    "summary": null,
-    "link": null,
-    "category": null
+    "summary": "null",
+    "link": "null",
+    "category": "null"
   },
   "sections": [
     {
-      "section_title": null,
-      "category": null,
+      "section_title": "null",
+      "category": "null",
       "articles": [
         {
-          "title": null,
-          "author":null,
-          "date_published": null,
-          "subtitle": null,
+          "title": "null",
+          "author":"null",
+          "date_published": "null",
+          "subtitle": "null",
           "image": {
-            "url": null,
-            "caption": null
+            "url": "null",
+            "caption": "null"
           },
-          "summary": null,
-          "link": null
+          "summary": "null",
+          "link": "null"
         }
       ]
-    }
-  ],
-  "images": [
-    {
-      "url": null,
-      "caption": null
     }
   ],
   "metadata": {
